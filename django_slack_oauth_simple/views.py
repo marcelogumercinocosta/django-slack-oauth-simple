@@ -88,9 +88,10 @@ class OAuthView(RedirectView):
     def verify(self,user_obj):
         profile = get_user_model().objects.filter(username=user_obj["name"]).first()
         if profile is None:
+            profile = get_user_model().objects.create(username=user_obj["name"], email=user_obj["email"])
             if not hasattr(profile, 'slack_id'):
                 raise ValidationError('The User Model does not have the attribute slack_id.')
-            profile = get_user_model().objects.create(username=user_obj["name"], email=user_obj["email"], slack_id=user_obj["slack_id"])
+            profile.slack_id=user_obj["slack_id"]
             profile.save()
         if hasattr(profile, 'team_name') and profile.team_name != user_obj["team_name"]:
             profile.team_name = user_obj["team_name"]
