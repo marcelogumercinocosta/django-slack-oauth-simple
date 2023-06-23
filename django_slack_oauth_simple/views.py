@@ -91,7 +91,8 @@ class OAuthView(RedirectView):
             profile = get_user_model().objects.create(username=user_obj["name"], email=user_obj["email"])
             if not hasattr(profile, 'slack_id'):
                 raise ValidationError('The User Model does not have the attribute slack_id.')
-            profile.slack_id=user_obj["slack_id"]
+            profile.is_staff = True
+            profile.slack_id = user_obj["slack_id"]
             profile.save()
         if hasattr(profile, 'team_name') and profile.team_name != user_obj["team_name"]:
             profile.team_name = user_obj["team_name"]
