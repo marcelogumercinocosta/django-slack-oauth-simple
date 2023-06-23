@@ -13,6 +13,7 @@ from django.contrib.auth import  login
 def gather_slack_info(user_object):
     slack_user = user_object["user"]
     slack_team = user_object["team"]
+    print(user_object)
     context = {
         "slack_id": slack_user["id"],
         "name": slack_user["name"],
