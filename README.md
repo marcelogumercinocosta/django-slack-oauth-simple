@@ -18,7 +18,7 @@
     ```python
     urlpatterns = [
         ...
-        path("slack/", include("apps.integrations.slack.urls")),
+        path("slack/", include("django_slack_oauth_simple.urls")),
         ...
     ]
     ```
